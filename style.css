@@ -1,0 +1,244 @@
+/* Aire Express Ohio LLC — airexpressus.com
+   Paleta placeholder (el cliente no tiene identidad visual formal definida todavía —
+   confirmado en Información del Cliente, pregunta 8). Ajustar cuando exista un brief de marca real. */
+
+:root {
+  --blue-deep: #0b3d63;
+  --blue: #1a6fb3;
+  --blue-light: #eaf3fb;
+  --gray-dark: #2b2f33;
+  --gray: #5b6570;
+  --gray-light: #f4f6f8;
+  --white: #ffffff;
+  --border: #dfe6ec;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--gray-dark);
+  line-height: 1.6;
+  background: var(--white);
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+header.site-header {
+  background: var(--blue-deep);
+  color: var(--white);
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+header.site-header .brand {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+header.site-header nav a {
+  color: var(--white);
+  margin-left: 22px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+header.site-header nav a:hover { text-decoration: underline; }
+
+.hero {
+  background: linear-gradient(135deg, var(--blue-deep), var(--blue));
+  color: var(--white);
+  padding: 56px 24px;
+}
+.hero h1 { font-size: 2.1rem; margin-bottom: 14px; }
+.hero p { font-size: 1.1rem; max-width: 520px; margin: 0 0 20px; opacity: 0.95; }
+
+.hero-split {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .hero-split { grid-template-columns: 1fr; }
+}
+
+.trust-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.trust-row .trust-item {
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.trust-row .trust-item::before { content: "✓"; color: #9be3a8; font-weight: 900; }
+
+.capture-card {
+  background: var(--white);
+  color: var(--gray-dark);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+.capture-card h3 {
+  color: var(--blue-deep);
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+.capture-card .subtext {
+  font-size: 0.88rem;
+  color: var(--gray);
+  margin-bottom: 16px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--white);
+  color: var(--blue-deep);
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover { text-decoration: none; opacity: 0.92; }
+.btn-primary { background: var(--blue-deep); color: var(--white); width: 100%; text-align: center; padding: 13px 28px; }
+
+.sticky-cta {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--blue-deep);
+  color: var(--white);
+  padding: 12px 20px;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+}
+.sticky-cta .btn { padding: 9px 18px; font-size: 0.9rem; }
+@media (max-width: 700px) {
+  .sticky-cta { display: flex; }
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+section { margin-bottom: 44px; }
+
+h2 {
+  color: var(--blue-deep);
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  border-bottom: 2px solid var(--blue-light);
+  padding-bottom: 8px;
+}
+
+h3 { color: var(--blue-deep); font-size: 1.15rem; margin: 18px 0 8px; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px;
+  background: var(--gray-light);
+}
+.card h3 { margin-top: 0; }
+
+.legal-doc h2:first-child { margin-top: 0; }
+.legal-doc p { margin-bottom: 12px; }
+.legal-doc ul { margin: 0 0 12px 24px; }
+
+form.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 520px;
+}
+
+form.contact-form label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 6px;
+}
+
+form.contact-form input[type="text"],
+form.contact-form input[type="tel"],
+form.contact-form input[type="email"],
+form.contact-form select,
+form.contact-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.consent-block {
+  background: var(--gray-light);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.consent-block input[type="checkbox"] { margin-top: 4px; }
+.consent-block p { font-size: 0.85rem; color: var(--gray); margin: 0; }
+
+.pending {
+  background: #fff8e6;
+  border: 1px solid #f0d78c;
+  color: #7a5b00;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+footer.site-footer {
+  background: var(--gray-dark);
+  color: #cfd6dc;
+  padding: 32px 24px;
+  font-size: 0.9rem;
+}
+footer.site-footer .footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+footer.site-footer a { color: #cfd6dc; }
+footer.site-footer .legal-links a { margin-right: 16px; }
+footer.site-footer .copyright { margin-top: 16px; opacity: 0.75; font-size: 0.82rem; }
+
+@media (max-width: 600px) {
+  header.site-header { flex-direction: column; align-items: flex-start; }
+  header.site-header nav a { margin-left: 0; margin-right: 18px; }
+}

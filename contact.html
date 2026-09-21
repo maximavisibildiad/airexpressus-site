@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — Aire Express Ohio LLC</title>
+<meta name="description" content="Request an HVAC estimate or get in touch with Aire Express Ohio LLC in Columbus, OH.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">Aire Express Ohio LLC</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <h2>Contact Us</h2>
+    <p>Fill out the form below and we'll get back to you. You can also reach us by phone or email using the details in the footer.</p>
+
+    <!--
+      Formulario de referencia — cuando el número de GHL esté activo, este formulario se
+      reemplaza/envuelve con el embed real de GHL Form Builder (mismo texto de los 2 checkboxes,
+      Required = OFF en T&C 1/T&C 2/Phone). Estructura y textos ya cumplen lo que pide la revisión.
+    -->
+    <form class="contact-form" action="#" method="post">
+      <div>
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div>
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone">
+      </div>
+
+      <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+      </div>
+
+      <div>
+        <label for="service_type">Type of Service</label>
+        <select id="service_type" name="service_type">
+          <option value="">Select one</option>
+          <option value="installation">Full System Installation</option>
+          <option value="repair">Repair</option>
+          <option value="maintenance">Maintenance</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="zip">ZIP Code</label>
+        <input type="text" id="zip" name="zip">
+      </div>
+
+      <div>
+        <label for="message">Tell us about the job</label>
+        <textarea id="message" name="message" rows="4"></textarea>
+      </div>
+
+      <div class="consent-block">
+        <input type="checkbox" id="consent_nonmarketing" name="consent_nonmarketing">
+        <p>I consent to receive non-marketing text messages from Aire Express Ohio LLC about appointment confirmations, estimate confirmations, project updates, appointment reminders, reschedule notifications, post-service follow-up, and responses to HVAC service inquiries. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
+      </div>
+
+      <div class="consent-block">
+        <input type="checkbox" id="consent_marketing" name="consent_marketing">
+        <p>I consent to receive marketing text messages from Aire Express Ohio LLC about special offers, discounts, and HVAC service promotions at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--gray)">By submitting this form you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-of-service.html">Terms of Service</a>. Checking the boxes above is optional and not required to submit this form.</p>
+
+      <button type="submit" class="btn" style="align-self:flex-start;background:var(--blue-deep);color:var(--white)">Send Request</button>
+    </form>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <strong>Aire Express Ohio LLC</strong><br>
+      5919 Cape Coral Ln, Hilliard, OH 43026<br>
+      Phone: <a href="tel:+13802626688">+1 (380) 262-6688</a><br>
+      Email: <a href="mailto:Jrodriguezamariles@gmail.com">Jrodriguezamariles@gmail.com</a><br>
+      Hours: Monday–Saturday, 8:00 AM–5:00 PM
+    </div>
+    <div class="legal-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="copyright">&copy; 2026 Aire Express Ohio LLC</div>
+</footer>
+
+</body>
+</html>
