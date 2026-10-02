@@ -242,3 +242,13 @@ footer.site-footer .copyright { margin-top: 16px; opacity: 0.75; font-size: 0.82
   header.site-header { flex-direction: column; align-items: flex-start; }
   header.site-header nav a { margin-left: 0; margin-right: 18px; }
 }
+
+/* Ofertas (2026-10-01) — mismas ofertas que los anuncios */
+.offer-card { display: flex; flex-direction: column; }
+.offer-card ul { margin: 0 0 18px 18px; padding: 0; font-size: 0.95rem; }
+.offer-card li { margin-bottom: 6px; }
+.offer-card .btn { margin-top: auto; }
+.offer-price { font-size: 2rem; font-weight: 800; color: var(--blue-deep); margin: 4px 0 0; }
+.offer-price span { display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blue); }
+.offer-sub { font-size: 0.9rem; color: var(--gray); margin: 2px 0 14px; }
+.offer-fine { font-size: 0.78rem; color: var(--gray); margin-top: 14px; }
