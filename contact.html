@@ -56,6 +56,19 @@
       </div>
 
       <div>
+        <label for="emergency">Is this an emergency? (no heat or no cooling)</label>
+        <select id="emergency" name="emergency">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
+
+      <div class="hp-field" aria-hidden="true">
+        <label for="company_website">Company website</label>
+        <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div>
         <label for="zip">ZIP Code</label>
         <input type="text" id="zip" name="zip">
       </div>
@@ -99,5 +112,6 @@
   <div class="copyright">&copy; 2026 Aire Express Ohio LLC</div>
 </footer>
 
+<script src="form.js" defer></script>
 </body>
 </html>

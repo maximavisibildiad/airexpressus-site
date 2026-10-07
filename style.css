@@ -252,3 +252,6 @@ footer.site-footer .copyright { margin-top: 16px; opacity: 0.75; font-size: 0.82
 .offer-price span { display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--blue); }
 .offer-sub { font-size: 0.9rem; color: var(--gray); margin: 2px 0 14px; }
 .offer-fine { font-size: 0.78rem; color: var(--gray); margin-top: 14px; }
+
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-thanks { font-size: 1.05rem; font-weight: 600; padding: 16px 0; }

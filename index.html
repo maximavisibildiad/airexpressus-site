@@ -61,6 +61,19 @@
           </select>
         </div>
 
+        <div>
+          <label for="h_emergency">Is this an emergency? (no heat or no cooling)</label>
+          <select id="h_emergency" name="emergency">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+
+        <div class="hp-field" aria-hidden="true">
+          <label for="h_company_website">Company website</label>
+          <input type="text" id="h_company_website" name="company_website" tabindex="-1" autocomplete="off">
+        </div>
+
         <div class="consent-block">
           <input type="checkbox" id="h_consent_nonmarketing" name="consent_nonmarketing">
           <p>I consent to receive non-marketing text messages from Aire Express Ohio LLC about appointment confirmations, estimate confirmations, project updates, appointment reminders, reschedule notifications, post-service follow-up, and responses to HVAC service inquiries. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
@@ -181,5 +194,6 @@
   <div class="copyright">&copy; 2026 Aire Express Ohio LLC</div>
 </footer>
 
+<script src="form.js" defer></script>
 </body>
 </html>
