@@ -58,6 +58,7 @@
       var button = form.querySelector('button[type="submit"]');
       if (button) { button.disabled = true; button.textContent = 'Sending...'; }
 
+      if (window.fbq) fbq('track', 'Lead', { content_name: payload.service_type || 'estimate' });
       send(payload).finally(function () {
         var msg = document.createElement('p');
         msg.className = 'form-thanks';
