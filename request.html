@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Your Free Visit — Aire Express Ohio LLC</title>
+<meta name="description" content="Tell us about your heating or cooling project and book a free in-home visit with Aire Express Ohio LLC, within 70 miles of Columbus, Ohio.">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1676815434010955');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1676815434010955&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
+<style>
+  :root {
+    --red: #d7141a;
+    --red-dark: #b01016;
+    --navy: #0b3a8c;
+    --ink: #1f2328;
+    --muted: #5b6570;
+    --line: #d9dee3;
+    --soft: #f4f5f7;
+    --green: #1f9d55;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    color: var(--ink);
+    line-height: 1.45;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  a { color: var(--navy); }
+  .top { text-align: center; padding: 10px 16px 8px; }
+  .top img { height: 54px; width: auto; }
+  .bar { height: 4px; background: var(--soft); }
+  .bar span { display: block; height: 100%; width: 10%; background: var(--red); transition: width .35s ease; }
+  main { flex: 1; width: 100%; max-width: 560px; margin: 0 auto; padding: 26px 16px 32px; }
+  .step { display: none; }
+  .step.on { display: block; animation: in .25s ease; }
+  @keyframes in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  h1 { font-size: 1.45rem; line-height: 1.25; font-weight: 800; margin-bottom: 18px; }
+  .lead { font-size: 1rem; font-weight: 600; margin: -6px 0 16px; }
+  .label { font-size: .9rem; font-weight: 600; margin-bottom: 10px; }
+  .field { position: relative; border: 1px solid var(--line); border-radius: 4px; padding: 7px 12px 6px; margin-bottom: 10px; background: #fff; }
+  .field:focus-within { border: 2px solid var(--ink); padding: 6px 11px 5px; }
+  .field label { display: block; font-size: .7rem; font-weight: 700; color: var(--ink); }
+  .field input { width: 100%; border: 0; outline: 0; font-size: 1rem; padding: 2px 0; background: transparent; color: var(--ink); }
+  .field .ok { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; border-radius: 50%; background: #d6f3e2; color: var(--green); font-size: 13px; line-height: 22px; text-align: center; display: none; }
+  .field.valid .ok { display: block; }
+  .row { display: flex; gap: 10px; }
+  .row .field { flex: 1; }
+  .city { color: var(--green); font-size: .92rem; margin: -2px 0 14px; min-height: 1.2em; }
+  .city.bad { color: var(--red); }
+  .opts { border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin-bottom: 16px; }
+  .opt { display: flex; align-items: center; gap: 12px; width: 100%; padding: 15px 14px; background: #fff; border: 0; border-bottom: 1px solid var(--line); font: inherit; font-size: .97rem; color: var(--ink); text-align: left; cursor: pointer; }
+  .opt:last-child { border-bottom: 0; }
+  .opt:hover, .opt.sel { background: var(--soft); }
+  .radio { flex: none; width: 20px; height: 20px; border: 2px solid #9aa3ad; border-radius: 50%; position: relative; }
+  .opt.sel .radio { border-color: var(--red); }
+  .opt.sel .radio::after { content: ""; position: absolute; inset: 3px; border-radius: 50%; background: var(--red); }
+  .chev { margin-left: auto; font-size: 1.3rem; color: var(--ink); line-height: 1; }
+  .other { display: none; padding: 0 14px 14px; background: var(--soft); }
+  .other.on { display: block; }
+  .other input { width: 100%; border: 2px solid var(--ink); border-radius: 4px; padding: 11px 12px; font-size: .97rem; }
+  .words { display: flex; align-items: center; gap: 10px; border: 2px solid var(--red); border-radius: 10px; padding: 12px 14px; margin: 18px 0 16px; box-shadow: 0 0 0 3px rgba(215,20,26,.08); }
+  .words span { color: var(--red); font-size: 1.1rem; }
+  .words input { flex: 1; border: 0; outline: 0; font-size: .97rem; background: transparent; }
+  .nav { display: flex; gap: 12px; }
+  .btn { flex: 1; border: 0; border-radius: 4px; padding: 14px; font: inherit; font-weight: 700; font-size: 1rem; cursor: pointer; background: var(--red); color: #fff; }
+  .btn:hover { background: var(--red-dark); }
+  .btn:disabled { opacity: .55; cursor: not-allowed; }
+  .btn.back { flex: 0 0 34%; background: #fff; color: var(--ink); border: 1px solid var(--line); font-weight: 600; }
+  .btn.back:hover { background: var(--soft); }
+  .center { text-align: center; }
+  .progress { height: 10px; border-radius: 6px; background: #e9ecef; overflow: hidden; margin: 18px 0 16px; }
+  .progress span { display: block; height: 100%; width: 0; background: var(--red); border-radius: 6px; }
+  .msg { width: 100%; min-height: 170px; border: 1px solid var(--line); border-radius: 4px; padding: 12px; font: inherit; font-size: .97rem; line-height: 1.55; resize: vertical; }
+  .count { text-align: right; font-size: .72rem; color: var(--muted); margin: 4px 0 16px; }
+  .project { color: var(--ink); margin: -6px 0 16px; font-size: .97rem; }
+  .consent-block { display: flex; gap: 10px; align-items: flex-start; margin: 12px 0; }
+  .consent-block input { flex: none; width: 20px; height: 20px; margin-top: 2px; accent-color: var(--navy); }
+  .consent-block p { font-size: .8rem; color: var(--ink); line-height: 1.45; }
+  .legal { font-size: .76rem; color: var(--muted); margin: 6px 0 16px; }
+  .err { color: var(--red); font-size: .85rem; margin: -4px 0 10px; min-height: 1em; }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .thanks h1 { margin-bottom: 10px; }
+  .thanks p { color: var(--muted); }
+  footer { background: var(--soft); padding: 20px 16px; font-size: .82rem; color: var(--muted); }
+  footer div { max-width: 560px; margin: 0 auto; }
+  footer a { display: inline-block; margin: 8px 16px 0 0; color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="top"><a href="index.html"><img src="logo.png" alt="Aire Express Ohio LLC"></a></div>
+<div class="bar"><span id="bar"></span></div>
+
+<main>
+<form id="flow" novalidate>
+
+  <!-- 1. ZIP -->
+  <section class="step on" data-step="zip">
+    <h1>Book a free in-home visit with Columbus' heating &amp; cooling team</h1>
+    <p class="label">Enter the location of your project</p>
+    <div class="field" id="zipField">
+      <label for="zip">ZIP code</label>
+      <input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}">
+      <span class="ok">✓</span>
+    </div>
+    <p class="city" id="zipCity"></p>
+    <div class="nav"><button type="button" class="btn" data-next>Next</button></div>
+  </section>
+
+  <!-- 2. Service -->
+  <section class="step" data-step="service">
+    <h1>What do you need help with?</h1>
+    <div class="opts" data-group="service_type" data-mode="radio">
+      <button type="button" class="opt" data-value="furnace"><span class="radio"></span>New or replacement furnace</button>
+      <button type="button" class="opt" data-value="ac"><span class="radio"></span>New or replacement A/C</button>
+      <button type="button" class="opt" data-value="full_system"><span class="radio"></span>Full system (furnace + A/C)</button>
+      <button type="button" class="opt" data-value="repair"><span class="radio"></span>Repair (heating or cooling)</button>
+      <button type="button" class="opt" data-value="maintenance"><span class="radio"></span>Maintenance / tune-up</button>
+      <button type="button" class="opt" data-value="other"><span class="radio"></span>Other</button>
+      <div class="other" id="otherBox"><input id="other_text" placeholder="Please specify"></div>
+    </div>
+    <div class="words"><span>✦</span><input id="own_words" placeholder="Tell us in your own words..."></div>
+    <div class="nav"><button type="button" class="btn back" data-back>Back</button><button type="button" class="btn" data-next>Next</button></div>
+  </section>
+
+  <!-- 3. Detail (question depends on the service) -->
+  <section class="step" data-step="detail">
+    <h1 id="detailQ"></h1>
+    <div class="opts" data-group="project_detail" data-mode="auto" id="detailOpts"></div>
+    <div class="words"><span>✦</span><input id="own_words_2" placeholder="Or, continue in your own words..."></div>
+    <div class="nav"><button type="button" class="btn back" data-back>Back</button></div>
+  </section>
+
+  <!-- 4. Timeline -->
+  <section class="step" data-step="timeline">
+    <h1>When do you need this work done?</h1>
+    <div class="opts" data-group="timeline" data-mode="auto">
+      <button type="button" class="opt" data-value="urgent">Urgent (1-2 days)<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="within_2_weeks">Within 2 weeks<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="more_than_2_weeks">More than 2 weeks<span class="chev">›</span></button>
+      <button type="button" class="opt" data-value="not_sure">Not sure - still planning/budgeting<span class="chev">›</span></button>
+    </div>
+    <div class="nav"><button type="button" class="btn back" data-back>Back</button></div>
+  </section>
+
+  <!-- 5. Building -->
+  <section class="step center" data-step="building">
+    <h1>Building your project</h1>
+    <div class="progress"><span id="buildBar"></span></div>
+    <p style="font-weight:600">Checking availability...</p>
+  </section>
+
+  <!-- 6. Custom message -->
+  <section class="step" data-step="message">
+    <h1>We started this custom message for you to send to our team.</h1>
+    <p class="lead">Feel free to edit it however you'd like.</p>
+    <textarea class="msg" id="message" name="message" maxlength="2000"></textarea>
+    <p class="count"><span id="msgCount">0</span>/2000</p>
+    <div class="nav"><button type="button" class="btn back" data-back>Back</button><button type="button" class="btn" data-next>Next</button></div>
+  </section>
+
+  <!-- 7. Address -->
+  <section class="step" data-step="address">
+    <h1>What's your project address?</h1>
+    <div class="field"><label for="street">Street</label><input id="street" name="street" autocomplete="address-line1"></div>
+    <div class="field"><label for="city">City</label><input id="city" name="city" autocomplete="address-level2"></div>
+    <div class="field" id="zipField2"><label for="zip2">ZIP code</label><input id="zip2" inputmode="numeric" maxlength="5"><span class="ok">✓</span></div>
+    <p class="city" id="zipCity2"></p>
+    <p class="err" id="addrErr"></p>
+    <div class="nav"><button type="button" class="btn back" data-back>Back</button><button type="button" class="btn" data-next>Next</button></div>
+  </section>
+
+  <!-- 8. Contact + consent -->
+  <section class="step" data-step="contact">
+    <h1>Good news: we serve your area!</h1>
+    <p class="project" id="projectLine"></p>
+    <div class="row">
+      <div class="field"><label for="first_name">First Name</label><input id="first_name" name="first_name" autocomplete="given-name"></div>
+      <div class="field"><label for="last_name">Last Name</label><input id="last_name" name="last_name" autocomplete="family-name"></div>
+    </div>
+    <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel"></div>
+    <div class="field"><label for="email">Email (optional)</label><input type="email" id="email" name="email" autocomplete="email"></div>
+
+    <div class="hp-field" aria-hidden="true">
+      <label for="company_website">Company website</label>
+      <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="consent-block">
+      <input type="checkbox" id="consent_nonmarketing" name="consent_nonmarketing">
+      <p>I consent to receive non-marketing text messages from Aire Express Ohio LLC about appointment confirmations, estimate confirmations, project updates, appointment reminders, reschedule notifications, post-service follow-up, and responses to HVAC service inquiries. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
+    </div>
+
+    <div class="consent-block">
+      <input type="checkbox" id="consent_marketing" name="consent_marketing">
+      <p>I consent to receive marketing text messages from Aire Express Ohio LLC about special offers, discounts, and HVAC service promotions at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
+    </div>
+
+    <p class="err" id="contactErr"></p>
+    <button type="submit" class="btn" style="width:100%" id="submitBtn">Book My Free Visit</button>
+    <p class="legal">By submitting you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-of-service.html">Terms of Service</a>. Checking the boxes above is optional and not required to submit this form.</p>
+  </section>
+
+  <!-- 9. Thanks -->
+  <section class="step thanks center" data-step="thanks">
+    <h1>You're all set!</h1>
+    <p>Thanks! We'll text or call you shortly to schedule your free visit.</p>
+  </section>
+
+</form>
+</main>
+
+<footer>
+  <div>
+    © Aire Express Ohio LLC · Columbus, Ohio<br>
+    <a href="terms-of-service.html">Terms of Service</a><a href="privacy-policy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script src="request.js"></script>
+</body>
+</html>
