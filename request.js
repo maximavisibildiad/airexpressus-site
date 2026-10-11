@@ -30,9 +30,9 @@
   var history = [];
   var current = 'zip';
 
-  // Conversions API: a second GoHighLevel workflow forwards the same Lead to Meta from the server.
-  // Empty until that workflow exists; the browser Pixel and the server event share event_id for deduplication.
-  var CAPI_WEBHOOK_URL = '';
+  // Conversions API: GoHighLevel workflow "AIRE - CAPI - Lead sitio" forwards the same Lead to Meta from the server.
+  // The browser Pixel and the server event share event_id for deduplication.
+  var CAPI_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/oQSGd8a3ZT22ofzOjSrC/webhook-trigger/888dd531-e808-46cc-b5dc-e5ad37f3c222';
 
   function $(id) { return document.getElementById(id); }
   function utm(name) { return new URLSearchParams(location.search).get(name) || ''; }
@@ -262,27 +262,6 @@
     return p ? p.textContent.trim() : '';
   }
 
-  // Full Conversions API request body, ready for GoHighLevel to forward as-is.
-  // Empty fields are left out: Meta silently drops a Lead whose user_data holds "" (tested 2026-10-11).
-  function capiBody(p) {
-    var user = {};
-    ['em', 'ph', 'fn', 'ln', 'ct', 'st', 'zp', 'country'].forEach(function (k) {
-      if (p['meta_' + k]) user[k] = [p['meta_' + k]];
-    });
-    if (p.fbp) user.fbp = p.fbp;
-    if (p.fbc) user.fbc = p.fbc;
-    user.client_user_agent = p.client_user_agent;
-    return JSON.stringify({ data: [{
-      event_name: 'Lead',
-      event_time: p.event_time,
-      event_id: p.event_id,
-      action_source: 'website',
-      event_source_url: p.page_url,
-      user_data: user,
-      custom_data: { content_name: p.service_type || 'estimate' }
-    }] });
-  }
-
   function send(payload) {
     if (CAPI_WEBHOOK_URL) post(CAPI_WEBHOOK_URL, payload);
     return post(WEBHOOK_URL, payload);
@@ -340,7 +319,7 @@
       utm_content: utm('utm_content'),
       fbclid: utm('fbclid'),
       event_id: 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10),
-      event_time: Math.floor(Date.now() / 1000),
+      event_time: String(Math.floor(Date.now() / 1000)),
       fbp: cookie('_fbp'),
       fbc: cookie('_fbc') || (utm('fbclid') ? 'fb.1.' + Date.now() + '.' + utm('fbclid') : ''),
       client_user_agent: navigator.userAgent
@@ -350,7 +329,6 @@
     if (window.fbq) fbq('track', 'Lead', { content_name: payload.service_type || 'estimate' }, { eventID: payload.event_id });
     metaUserData(payload).catch(function () { return {}; }).then(function (hashed) {
       Object.keys(hashed).forEach(function (k) { payload[k] = hashed[k]; });
-      payload.capi_body = capiBody(payload);
       return send(payload);
     }).finally(function () { show('thanks'); history = []; });
   });
