@@ -262,6 +262,27 @@
     return p ? p.textContent.trim() : '';
   }
 
+  // Full Conversions API request body, ready for GoHighLevel to forward as-is.
+  // Empty fields are left out: Meta silently drops a Lead whose user_data holds "" (tested 2026-10-11).
+  function capiBody(p) {
+    var user = {};
+    ['em', 'ph', 'fn', 'ln', 'ct', 'st', 'zp', 'country'].forEach(function (k) {
+      if (p['meta_' + k]) user[k] = [p['meta_' + k]];
+    });
+    if (p.fbp) user.fbp = p.fbp;
+    if (p.fbc) user.fbc = p.fbc;
+    user.client_user_agent = p.client_user_agent;
+    return JSON.stringify({ data: [{
+      event_name: 'Lead',
+      event_time: p.event_time,
+      event_id: p.event_id,
+      action_source: 'website',
+      event_source_url: p.page_url,
+      user_data: user,
+      custom_data: { content_name: p.service_type || 'estimate' }
+    }] });
+  }
+
   function send(payload) {
     if (CAPI_WEBHOOK_URL) post(CAPI_WEBHOOK_URL, payload);
     return post(WEBHOOK_URL, payload);
@@ -329,6 +350,7 @@
     if (window.fbq) fbq('track', 'Lead', { content_name: payload.service_type || 'estimate' }, { eventID: payload.event_id });
     metaUserData(payload).catch(function () { return {}; }).then(function (hashed) {
       Object.keys(hashed).forEach(function (k) { payload[k] = hashed[k]; });
+      payload.capi_body = capiBody(payload);
       return send(payload);
     }).finally(function () { show('thanks'); history = []; });
   });
