@@ -30,8 +30,46 @@
   var history = [];
   var current = 'zip';
 
+  // Conversions API: a second GoHighLevel workflow forwards the same Lead to Meta from the server.
+  // Empty until that workflow exists; the browser Pixel and the server event share event_id for deduplication.
+  var CAPI_WEBHOOK_URL = '';
+
   function $(id) { return document.getElementById(id); }
   function utm(name) { return new URLSearchParams(location.search).get(name) || ''; }
+
+  function cookie(name) {
+    var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : '';
+  }
+
+  // SHA-256 hex of a value normalized as Meta requires; empty input stays empty.
+  function sha256(value) {
+    if (!value || !window.crypto || !crypto.subtle) return Promise.resolve('');
+    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(value)).then(function (buf) {
+      return Array.prototype.map.call(new Uint8Array(buf), function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+    });
+  }
+
+  function metaUserData(p) {
+    var digits = p.phone.replace(/\D/g, '');
+    if (digits.length === 10) digits = '1' + digits;
+    var fields = {
+      em: p.email.toLowerCase(),
+      ph: digits,
+      fn: p.first_name.toLowerCase(),
+      ln: p.last_name.toLowerCase(),
+      ct: p.city.toLowerCase().replace(/[^a-z]/g, ''),
+      st: (p.state || '').toLowerCase(),
+      zp: (p.zip || '').slice(0, 5),
+      country: 'us'
+    };
+    var keys = Object.keys(fields);
+    return Promise.all(keys.map(function (k) { return sha256(fields[k]); })).then(function (hashes) {
+      var out = {};
+      keys.forEach(function (k, i) { out['meta_' + k] = hashes[i]; });
+      return out;
+    });
+  }
 
   function show(step, push) {
     if (push !== false && current !== 'building') history.push(current);
@@ -225,12 +263,17 @@
   }
 
   function send(payload) {
-    return fetch(WEBHOOK_URL, {
+    if (CAPI_WEBHOOK_URL) post(CAPI_WEBHOOK_URL, payload);
+    return post(WEBHOOK_URL, payload);
+  }
+
+  function post(url, payload) {
+    return fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     }).catch(function () {
-      return fetch(WEBHOOK_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(payload) });
+      return fetch(url, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(payload) });
     });
   }
 
@@ -274,11 +317,19 @@
       utm_medium: utm('utm_medium'),
       utm_campaign: utm('utm_campaign'),
       utm_content: utm('utm_content'),
-      fbclid: utm('fbclid')
+      fbclid: utm('fbclid'),
+      event_id: 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10),
+      event_time: Math.floor(Date.now() / 1000),
+      fbp: cookie('_fbp'),
+      fbc: cookie('_fbc') || (utm('fbclid') ? 'fb.1.' + Date.now() + '.' + utm('fbclid') : ''),
+      client_user_agent: navigator.userAgent
     };
     var btn = $('submitBtn');
     btn.disabled = true; btn.textContent = 'Sending...';
-    if (window.fbq) fbq('track', 'Lead', { content_name: payload.service_type || 'estimate' });
-    send(payload).finally(function () { show('thanks'); history = []; });
+    if (window.fbq) fbq('track', 'Lead', { content_name: payload.service_type || 'estimate' }, { eventID: payload.event_id });
+    metaUserData(payload).catch(function () { return {}; }).then(function (hashed) {
+      Object.keys(hashed).forEach(function (k) { payload[k] = hashed[k]; });
+      return send(payload);
+    }).finally(function () { show('thanks'); history = []; });
   });
 })();
