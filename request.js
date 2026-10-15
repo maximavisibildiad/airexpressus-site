@@ -1,4 +1,4 @@
-// Multi-step request flow (request.html). Sends the lead to the same GoHighLevel Inbound Webhook as form.js.
+// Multi-step request flow (request.html): ZIP, contact + consent, then project details. Sends the lead to the same GoHighLevel Inbound Webhook as form.js.
 // The two A2P consent checkboxes keep the exact site text, start unchecked and are optional.
 (function () {
   var WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/oQSGd8a3ZT22ofzOjSrC/webhook-trigger/fad7b00b-dc51-4eea-9e62-d9ca7ed388be';
@@ -23,7 +23,7 @@
     more_than_2_weeks: "There's no rush; more than 2 weeks works for me.",
     not_sure: "I'm still planning and budgeting."
   };
-  var PROGRESS = { zip: 10, service: 25, detail: 40, timeline: 55, building: 65, message: 72, address: 85, contact: 95, thanks: 100 };
+  var PROGRESS = { zip: 10, contact: 22, service: 35, detail: 45, timeline: 55, building: 65, message: 72, address: 85, thanks: 100 };
 
   var form = document.getElementById('flow');
   var state = { service_type: '', project_detail: '', timeline: '', zipOk: false, city: '', state: '' };
@@ -72,7 +72,7 @@
   }
 
   // Funnel measurement: one Pixel custom event per step reached, once per visit, to see where visitors drop off.
-  var STEP_ORDER = ['zip', 'service', 'detail', 'timeline', 'building', 'message', 'address', 'contact', 'thanks'];
+  var STEP_ORDER = ['zip', 'contact', 'service', 'detail', 'timeline', 'building', 'message', 'address', 'thanks'];
   var reached = {};
   function trackStep(step) {
     if (reached[step] || !window.fbq) return;
@@ -226,9 +226,9 @@
   function next() {
     if (current === 'zip') {
       var z = $('zip').value;
-      if (state.zipOk) return show('service');
+      if (state.zipOk) return show('contact');
       checkZip(z, $('zipField'), $('zipCity'), function (ok) {
-        if (ok) show('service');
+        if (ok) show('contact');
         else if (!$('zipCity').textContent) { $('zipCity').classList.add('bad'); $('zipCity').textContent = 'Please enter your 5-digit ZIP code.'; }
       });
       return;
@@ -253,7 +253,7 @@
         return;
       }
       $('addrErr').textContent = '';
-      var go = function () { $('projectLine').textContent = 'Project: ' + projectLine(); show('contact'); };
+      var go = finish;
       if ($('zip2').value !== $('zip').value) {
         $('zip').value = $('zip2').value;
         return checkZip($('zip2').value, $('zipField2'), $('zipCity2'), function (ok) { if (ok) go(); });
@@ -287,34 +287,31 @@
     });
   }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (current !== 'contact') return next();
-    if ($('company_website').value) return;
+  // The lead is sent once per visit. With at least one consent box checked it is sent at the contact step
+  // (step 2), so it is captured even if the visitor leaves the rest of the form. Without consent it is sent
+  // only when the form is completed, as before: Speed to Lead texts every new contact and must not text a
+  // visitor who did not opt in and did not finish.
+  var sent = false;
+
+  function buildPayload(stage) {
     var first = $('first_name').value.trim(), last = $('last_name').value.trim();
-    var phone = $('phone').value.trim();
-    if (!first || phone.replace(/\D/g, '').length < 10) {
-      $('contactErr').textContent = 'Please enter your first name and a 10-digit phone number.';
-      return;
-    }
-    $('contactErr').textContent = '';
     var nonMkt = $('consent_nonmarketing'), mkt = $('consent_marketing');
     var emergency = state.service_type === 'repair' && (state.project_detail === 'no_heat' || state.project_detail === 'no_cooling');
-    var payload = {
+    return {
       name: (first + ' ' + last).trim(),
       first_name: first,
       last_name: last,
-      phone: phone,
+      phone: $('phone').value.trim(),
       email: $('email').value.trim(),
       service_type: state.service_type,
-      project: projectLine(),
+      project: state.service_type ? projectLine() : '',
       project_detail: state.project_detail,
       timeline: state.timeline,
       emergency: emergency ? 'yes' : 'no',
       street: $('street').value.trim(),
-      city: $('city').value.trim(),
+      city: $('city').value.trim() || state.city,
       state: state.state || 'OH',
-      zip: $('zip2').value,
+      zip: $('zip2').value || $('zip').value,
       message: $('message').value.trim(),
       consent_nonmarketing: nonMkt.checked ? 'yes' : 'no',
       consent_marketing: mkt.checked ? 'yes' : 'no',
@@ -322,6 +319,7 @@
       consent_text_nonmarketing: consentText(nonMkt),
       consent_text_marketing: consentText(mkt),
       lead_form: 'request_multistep',
+      lead_stage: stage,
       page_url: location.href,
       utm_source: utm('utm_source'),
       utm_medium: utm('utm_medium'),
@@ -334,13 +332,38 @@
       fbc: cookie('_fbc') || (utm('fbclid') ? 'fb.1.' + Date.now() + '.' + utm('fbclid') : ''),
       client_user_agent: navigator.userAgent
     };
-    var btn = $('submitBtn');
-    btn.disabled = true; btn.textContent = 'Sending...';
+  }
+
+  function deliver(stage) {
+    if (sent) return Promise.resolve();
+    sent = true;
+    var payload = buildPayload(stage);
     if (window.fbq) fbq('track', 'Lead', { content_name: payload.service_type || 'estimate' }, { eventID: payload.event_id });
-    metaUserData(payload).catch(function () { return {}; }).then(function (hashed) {
+    return metaUserData(payload).catch(function () { return {}; }).then(function (hashed) {
       Object.keys(hashed).forEach(function (k) { payload[k] = hashed[k]; });
       return send(payload);
-    }).finally(function () { show('thanks'); history = []; });
+    });
+  }
+
+  function finish() {
+    var btn = form.querySelector('section[data-step="address"] [data-next]');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    deliver('completed').finally(function () { show('thanks'); history = []; });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (current !== 'contact') return next();
+    if ($('company_website').value) return;
+    var first = $('first_name').value.trim();
+    var phone = $('phone').value.trim();
+    if (!first || phone.replace(/\D/g, '').length < 10) {
+      $('contactErr').textContent = 'Please enter your first name and a 10-digit phone number.';
+      return;
+    }
+    $('contactErr').textContent = '';
+    if ($('consent_nonmarketing').checked || $('consent_marketing').checked) deliver('contact_step');
+    show('service');
   });
 
   trackStep('zip');

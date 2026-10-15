@@ -120,6 +120,36 @@ fbq('track','PageView');
     <div class="nav"><button type="button" class="btn" data-next>Next</button></div>
   </section>
 
+  <!-- 2. Contact + consent (right after ZIP so the lead is captured early) -->
+  <section class="step" data-step="contact">
+    <h1>Good news: we serve your area!</h1>
+        <div class="row">
+      <div class="field"><label for="first_name">First Name</label><input id="first_name" name="first_name" autocomplete="given-name"></div>
+      <div class="field"><label for="last_name">Last Name</label><input id="last_name" name="last_name" autocomplete="family-name"></div>
+    </div>
+    <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel"></div>
+    <div class="field"><label for="email">Email (optional)</label><input type="email" id="email" name="email" autocomplete="email"></div>
+
+    <div class="hp-field" aria-hidden="true">
+      <label for="company_website">Company website</label>
+      <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <div class="consent-block">
+      <input type="checkbox" id="consent_nonmarketing" name="consent_nonmarketing">
+      <p>I consent to receive non-marketing text messages from Aire Express Ohio LLC about appointment confirmations, estimate confirmations, project updates, appointment reminders, reschedule notifications, post-service follow-up, and responses to HVAC service inquiries. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
+    </div>
+
+    <div class="consent-block">
+      <input type="checkbox" id="consent_marketing" name="consent_marketing">
+      <p>I consent to receive marketing text messages from Aire Express Ohio LLC about special offers, discounts, and HVAC service promotions at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
+    </div>
+
+    <p class="err" id="contactErr"></p>
+    <button type="submit" class="btn" style="width:100%" id="submitBtn">Continue</button>
+    <p class="legal">By submitting you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-of-service.html">Terms of Service</a>. Checking the boxes above is optional and not required to submit this form.</p>
+  </section>
+
   <!-- 2. Service -->
   <section class="step" data-step="service">
     <h1>What do you need help with?</h1>
@@ -180,38 +210,7 @@ fbq('track','PageView');
     <div class="field" id="zipField2"><label for="zip2">ZIP code</label><input id="zip2" inputmode="numeric" maxlength="5"><span class="ok">✓</span></div>
     <p class="city" id="zipCity2"></p>
     <p class="err" id="addrErr"></p>
-    <div class="nav"><button type="button" class="btn back" data-back>Back</button><button type="button" class="btn" data-next>Next</button></div>
-  </section>
-
-  <!-- 8. Contact + consent -->
-  <section class="step" data-step="contact">
-    <h1>Good news: we serve your area!</h1>
-    <p class="project" id="projectLine"></p>
-    <div class="row">
-      <div class="field"><label for="first_name">First Name</label><input id="first_name" name="first_name" autocomplete="given-name"></div>
-      <div class="field"><label for="last_name">Last Name</label><input id="last_name" name="last_name" autocomplete="family-name"></div>
-    </div>
-    <div class="field"><label for="phone">Phone Number</label><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel"></div>
-    <div class="field"><label for="email">Email (optional)</label><input type="email" id="email" name="email" autocomplete="email"></div>
-
-    <div class="hp-field" aria-hidden="true">
-      <label for="company_website">Company website</label>
-      <input type="text" id="company_website" name="company_website" tabindex="-1" autocomplete="off">
-    </div>
-
-    <div class="consent-block">
-      <input type="checkbox" id="consent_nonmarketing" name="consent_nonmarketing">
-      <p>I consent to receive non-marketing text messages from Aire Express Ohio LLC about appointment confirmations, estimate confirmations, project updates, appointment reminders, reschedule notifications, post-service follow-up, and responses to HVAC service inquiries. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
-    </div>
-
-    <div class="consent-block">
-      <input type="checkbox" id="consent_marketing" name="consent_marketing">
-      <p>I consent to receive marketing text messages from Aire Express Ohio LLC about special offers, discounts, and HVAC service promotions at the phone number provided. Message frequency may vary. Message &amp; data rates may apply. I am 18 or older. Text HELP for assistance, reply STOP to opt out.</p>
-    </div>
-
-    <p class="err" id="contactErr"></p>
-    <button type="submit" class="btn" style="width:100%" id="submitBtn">Book My Free Visit</button>
-    <p class="legal">By submitting you agree to our <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-of-service.html">Terms of Service</a>. Checking the boxes above is optional and not required to submit this form.</p>
+    <div class="nav"><button type="button" class="btn back" data-back>Back</button><button type="button" class="btn" data-next>Book My Free Visit</button></div>
   </section>
 
   <!-- 9. Thanks -->
