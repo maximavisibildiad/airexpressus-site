@@ -71,7 +71,17 @@
     });
   }
 
+  // Funnel measurement: one Pixel custom event per step reached, once per visit, to see where visitors drop off.
+  var STEP_ORDER = ['zip', 'service', 'detail', 'timeline', 'building', 'message', 'address', 'contact', 'thanks'];
+  var reached = {};
+  function trackStep(step) {
+    if (reached[step] || !window.fbq) return;
+    reached[step] = true;
+    fbq('trackCustom', 'RequestStep', { step: step, step_number: STEP_ORDER.indexOf(step) + 1 });
+  }
+
   function show(step, push) {
+    trackStep(step);
     if (push !== false && current !== 'building') history.push(current);
     form.querySelectorAll('.step').forEach(function (s) { s.classList.toggle('on', s.dataset.step === step); });
     current = step;
@@ -332,4 +342,6 @@
       return send(payload);
     }).finally(function () { show('thanks'); history = []; });
   });
+
+  trackStep('zip');
 })();
