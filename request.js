@@ -272,8 +272,12 @@
     return p ? p.textContent.trim() : '';
   }
 
+  // GoHighLevel workflow "AIRE - Datos sitio": waits 1 minute and saves address, project, consent and UTM fields on the contact.
+  var DATA_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/oQSGd8a3ZT22ofzOjSrC/webhook-trigger/8dc5c152-6734-418a-abe7-9671345c9b55';
+
   function send(payload) {
     if (CAPI_WEBHOOK_URL) post(CAPI_WEBHOOK_URL, payload);
+    if (DATA_WEBHOOK_URL) post(DATA_WEBHOOK_URL, payload);
     return post(WEBHOOK_URL, payload);
   }
 
@@ -348,7 +352,9 @@
   function finish() {
     var btn = form.querySelector('section[data-step="address"] [data-next]');
     btn.disabled = true; btn.textContent = 'Sending...';
-    deliver('completed').finally(function () { show('thanks'); history = []; });
+    // Lead already sent at the contact step: only the data workflow gets the completed answers (no second Lead, no Speed to Lead).
+    var done = sent && DATA_WEBHOOK_URL ? post(DATA_WEBHOOK_URL, buildPayload('completed')) : deliver('completed');
+    done.finally(function () { show('thanks'); history = []; });
   }
 
   form.addEventListener('submit', function (e) {
